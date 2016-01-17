@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Johns Hopkins Coursera Data Science Specialization Capstone Project</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/reveal.min.css">
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/theme/default.css" id="theme">
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/default.css" id="theme">
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->  <link rel="stylesheet" href = "assets/css/imgborder.css">
+<link rel="stylesheet" href = "assets/css/ribbons.css">
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section class='' data-state='' id='slide-1'>
+  <h2>Data Science Specialization Capstone Project</h2>
+  <p>The goal of this project is to develop a <span style = "color:#2ecc71; font-weight:bold">predictive</span> keyboard application that takes in a phrase and outputs a prediction of the next word.</p>
+
+<p><img src="resources/capstonePartners.png" alt="Course Partners"></p>
+
+</section>
+<section class='' data-state='noborder' id='slide-2'>
+  <h2>Data Source</h2>
+  <ul>
+<li><p>The training dataset comes from a corpus called <a href="http://www.corpora.heliohost.org">HC Corpora</a>. It consists of three files containing unstructured data from blogs, news articles and tweets from Twitter.</p></li>
+<li><p>This dataset was first sampled and processed to generate the n-grams required.</p></li>
+<li><p>The n-grams were then used to build a prediction engine for the app.</p></li>
+<li><p>Summary of workflow:
+<img src="resources/workflow.png" alt="Workflow"></p></li>
+</ul>
+
+</section>
+<section class='' data-state='noborder' id='slide-3'>
+  <h2>App</h2>
+  <ul>
+<li>Hosted at this <a href="https://outrigger.shinyapps.io/shiny_app/">link</a></li>
+<li>Wait for the app to load. Once done, &quot;[1] NA&quot; will appear as the next predicted word.</li>
+<li>Enter a phrase in the textbox provided and the next predicted word will be generated.</li>
+<li>Screenshot:
+<img src="resources/app.png" alt="Screenshot"></li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-4'>
+  <h2>Algorithm</h2>
+  <ul>
+<li>Katz back-off model
+
+<ul>
+<li>Katz back-off is a generative n-gram language model that estimates the conditional probability of a word given its history in the n-gram.</li>
+<li>It accomplishes this estimation by &quot;backing-off&quot; to models with smaller histories under certain conditions.</li>
+<li>By doing so, the model with the most reliable information about a given history is used to provide better results.</li>
+</ul></li>
+</ul>
+
+</section>
+<section class='' data-state='' id='slide-5'>
+  <h2>Implementation</h2>
+  <ul>
+<li>Example: 
+
+<ul>
+<li>Suppose that a 4-grams model is used to calculate the probability of the next word.</li>
+<li>We have the phrase &quot;a case of beer for a&quot; followed by &quot;dollar&quot;.</li>
+<li>Let&#39;s say &quot;dollar&quot; never occurred in the context &quot;a case of beer for a&quot;, hence the 4-grams model &quot;dollar&quot; has a probability of 0.</li>
+<li>We then apply back-off which means going back to the (n - 1)-grams level to calculate the probabilities when we encounter a word with probability = 0.</li>
+<li>In this case, we will use a 3-grams model to calculate the probability of &quot;dollar&quot; in the context &quot;case of beer for a&quot;.</li>
+</ul></li>
+</ul>
+
+</section>
+    </div>
+  </div>
+</body>
+  <script src="libraries/frameworks/revealjs/lib/js/head.min.js"></script>
+  <script src="libraries/frameworks/revealjs/js/reveal.min.js"></script>
+  <script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    theme: Reveal.getQueryHash().theme || 'default', 
+    transition: Reveal.getQueryHash().transition || 'default', 
+    dependencies: [
+    // Cross-browser shim that fully implements classList -
+    // https://github.com/eligrey/classList.js/
+      { src: 'libraries/frameworks/revealjs/lib/js/classList.js', condition: function() { return !document.body.classList;}},
+      // Zoom in and out with Alt+click
+      { src: 'libraries/frameworks/revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Speaker notes
+      { src: 'libraries/frameworks/revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Remote control your reveal.js presentation using a touch device
+      //{ src: 'libraries/frameworks/revealjs/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+  });
+  </script>  <!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+ 
+
+</html>
